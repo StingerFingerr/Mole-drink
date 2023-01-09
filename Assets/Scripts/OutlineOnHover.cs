@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class OutlineOnHover : MonoBehaviour
@@ -7,11 +6,11 @@ public class OutlineOnHover : MonoBehaviour
     
     private void OnMouseEnter()
     {
-        outline.enabled = true;
+        outline.OutlineWidth = 4;
     }
 
     private void OnMouseExit()
     {
-        outline.enabled = false;
+        outline.OutlineWidth = 0;
     }
 }

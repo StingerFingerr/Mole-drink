@@ -6,12 +6,26 @@ namespace UI
 {
     public class ClosableWindow: MonoBehaviour
     {
-        public Action OnClose;
         [SerializeField]private Button closeButton;
+
+        private Action _onClose;
 
         private void Awake()
         {
-            closeButton.onClick.AddListener(() => OnClose?.Invoke());
+            closeButton.onClick.AddListener(Close);
+        }
+
+        public void Open(Action onClosed)
+        {
+            _onClose = onClosed;
+            gameObject.SetActive(true);
+        }
+
+        public void Close()
+        {
+            _onClose?.Invoke();
+            _onClose = null;
+            gameObject.SetActive(false);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Cinemachine;
+﻿using Cinemachine;
 using UI;
 using UnityEngine;
 
@@ -11,35 +10,39 @@ namespace GameStateMachine
         public TaskManager taskManager;
         public MessageWindow messageWindow;
         public ClosableWindow recipe;
-        public CinemachineFreeLook freeLook;
+        public FadingScreen fadingScreen;
+
+        public CameraManager cameraManager;
+        public CinemachineVirtualCameraBase lookingAroundCam;
+        public CinemachineVirtualCameraBase readingCam;
         
         public GameTask findRecipeTask;
         public GameMessage readRecipeMessage;
         
         public override void Enter()
         {
+            cameraManager.SetActiveVCamera(lookingAroundCam);
             Subscribe();
             SetTask();
         }
 
         public override void Exit()
         {
-            freeLook.enabled = true;
+            fadingScreen.Show();
             
             nextState?.Enter();
         }
 
-        private void SetTask()
-        {
+        private void SetTask() => 
             taskManager.SetTask(findRecipeTask);
-        }
 
         private void FinishTask()
         {
             recipesBook.OnPressed -= FinishTask;
             
             recipesBook.Interact();
-            freeLook.enabled = false;
+
+            cameraManager.SetActiveVCamera(readingCam);
             
             taskManager.FinishTask(findRecipeTask);
             messageWindow.ShowMessage(readRecipeMessage, OpenRecipe);
@@ -47,23 +50,17 @@ namespace GameStateMachine
 
         private void OpenRecipe()
         {
-            recipe.gameObject.SetActive(true);
-            recipe.OnClose += Continue;
+            recipe.Open(Continue);
         }
 
         private void Continue()
         {
-            recipe.OnClose -= Continue;
-            recipe.gameObject.SetActive(false);
-            
             Destroy(recipesBook.gameObject);
             
             Exit();
         }
 
-        private void Subscribe()
-        {
+        private void Subscribe() => 
             recipesBook.OnPressed += FinishTask;
-        }
     }
 }

@@ -28,9 +28,9 @@ namespace UI
 
         private void Confirm()
         {
-            gameObject.SetActive(false);
             _onConfirm?.Invoke();
             _onConfirm = null;
+            gameObject.SetActive(false);
         }
     }
 }
