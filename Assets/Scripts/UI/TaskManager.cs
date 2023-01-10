@@ -5,19 +5,16 @@ namespace UI
 {
     public class TaskManager: MonoBehaviour
     {
-        public TextMeshProUGUI taskTitle;
         public TextMeshProUGUI taskDescription;
 
         public void SetTask(GameTask task)
         {
-            taskTitle.text = task.title;
+            FinishTask();
             taskDescription.text = task.description;
             gameObject.SetActive(true);
         }
 
-        public void FinishTask(GameTask task)
-        {
+        public void FinishTask() => 
             gameObject.SetActive(false);
-        }
     }
 }

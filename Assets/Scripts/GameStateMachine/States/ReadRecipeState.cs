@@ -1,6 +1,5 @@
 ﻿using Cinemachine;
 using UI;
-using UnityEngine;
 
 namespace GameStateMachine
 {
@@ -8,7 +7,6 @@ namespace GameStateMachine
     {
         public InteractableObject recipesBook;
         public TaskManager taskManager;
-        public MessageWindow messageWindow;
         public ClosableWindow recipe;
         public FadingScreen fadingScreen;
 
@@ -17,13 +15,13 @@ namespace GameStateMachine
         public CinemachineVirtualCameraBase readingCam;
         
         public GameTask findRecipeTask;
-        public GameMessage readRecipeMessage;
         
         public override void Enter()
         {
             cameraManager.SetActiveVCamera(lookingAroundCam);
             Subscribe();
             SetTask();
+            onEnter?.Invoke();
         }
 
         public override void Exit()
@@ -40,12 +38,11 @@ namespace GameStateMachine
         {
             recipesBook.OnPressed -= FinishTask;
             
-            recipesBook.Interact();
-
             cameraManager.SetActiveVCamera(readingCam);
             
-            taskManager.FinishTask(findRecipeTask);
-            messageWindow.ShowMessage(readRecipeMessage, OpenRecipe);
+            taskManager.FinishTask();
+            
+            OpenRecipe();
         }
 
         private void OpenRecipe()

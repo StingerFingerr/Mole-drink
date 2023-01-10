@@ -5,7 +5,8 @@ namespace UI
     [Serializable]
     public class GameMessage
     {
+        public MessageType type;
         public string message;
-        public string buttonName;
+        public float messageDuration = 3f;
     }
 }
