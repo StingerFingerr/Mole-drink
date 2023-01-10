@@ -7,6 +7,6 @@ namespace UI
     {
         public MessageType type;
         public string message;
-        public float messageDuration = 3f;
+        public float messageDuration = 2f;
     }
 }
