@@ -16,7 +16,6 @@ namespace GameStateMachine
         public CameraManager cameraManager;
         public CinemachineVirtualCameraBase findToolCam;
         
-        
         public override void Enter()
         {
             StartCoroutine(FadeDelay());
@@ -40,15 +39,13 @@ namespace GameStateMachine
             targetObject.gameObject.SetActive(false);
             taskManager.FinishTask();
 
-            Invoke(nameof(Exit), 1);
+            Exit();
         }
 
         private static WaitForSeconds OneSecond() => 
             new WaitForSeconds(1f);
 
-        public override void Exit()
-        {
-            
-        }
+        public override void Exit() => 
+            nextState.Enter();
     }
 }
