@@ -31,6 +31,9 @@ namespace UI
             DisableVia(message.messageDuration);
         }
 
+        public void Hide() => 
+            gameObject.SetActive(false);
+
 
         private void DisableVia(float time)
         {
@@ -38,7 +41,7 @@ namespace UI
                 .AppendInterval(time)
                 .Append(messageText.DOFade(0, fadingTextDuration))
                 .Join(backgroundImage.DOFade(0, fadingBackDuration))
-                .AppendCallback(() => { _disabling = null;});
+                .AppendCallback(() => { _disabling = null; Hide();});
         }
 
         private Color GetColor(MessageType messageType) =>
