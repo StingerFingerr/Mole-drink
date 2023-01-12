@@ -20,26 +20,20 @@ namespace GameStateMachine
         public CameraManager cameraManager;
         public CinemachineVirtualCameraBase lookingAroundCam;
 
-        public List<GameObject> gameObjectsToEnable;
-
-
         public override void Enter() => 
             StartCoroutine(FadeDelay());
 
         private IEnumerator FadeDelay()
         {
-            yield return new WaitForSeconds(1f);
-            gameObjectsToEnable.ForEach(o => o.SetActive(true));
+            yield return new WaitForSeconds(2f);
             cameraManager.SetActiveVCamera(lookingAroundCam);
 
+            targetObject.OnPressed += AlcoholFound;
             messageWindow.Hide();
-            fadingScreen.Hide();
+            //fadingScreen.Hide();
 
             yield return new WaitForSeconds(1f);
             taskManager.SetTask(findAlcoholTask);
-
-            targetObject.OnPressed += AlcoholFound;
-            
             onEnter?.Invoke();
         }
 

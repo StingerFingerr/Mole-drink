@@ -15,13 +15,22 @@ public class InteractableObject: MonoBehaviour
     public UnityEvent onInteract;
 
     private bool _nextMessageAllowed = true;
+    private bool _isActive;
     
     private void OnMouseDown()
     {
+        if (_isActive is false)
+            return;
         ShowMessage();
         OnPressed?.Invoke();
         onInteract?.Invoke();
     }
+
+    private void OnEnable() => 
+        _isActive = true;
+
+    private void OnDisable() => 
+        _isActive = false;
 
     private void ShowMessage()
     {

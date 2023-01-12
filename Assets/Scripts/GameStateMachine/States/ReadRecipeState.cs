@@ -1,11 +1,14 @@
 ﻿using Cinemachine;
+using DG.Tweening;
 using UI;
+using UnityEngine;
 
 namespace GameStateMachine
 {
     public class ReadRecipeState: BaseState
     {
         public InteractableObject recipesBook;
+        public GameObject bookFx;
         public TaskManager taskManager;
         public ClosableWindow recipe;
         public FadingScreen fadingScreen;
@@ -15,7 +18,7 @@ namespace GameStateMachine
         public CinemachineVirtualCameraBase readingCam;
         
         public GameTask findRecipeTask;
-        
+
         public override void Enter()
         {
             cameraManager.SetActiveVCamera(lookingAroundCam);
@@ -26,7 +29,7 @@ namespace GameStateMachine
 
         public override void Exit()
         {
-            fadingScreen.Show();
+            //fadingScreen.Show();
             
             nextState?.Enter();
         }
@@ -52,9 +55,21 @@ namespace GameStateMachine
 
         private void Continue()
         {
-            Destroy(recipesBook.gameObject);
-            
+            PlayBookAnimation();
+
             Exit();
+        }
+
+        private void PlayBookAnimation()
+        {
+            DOTween.Sequence()
+                .Append(recipesBook.transform.DOScale(.7f, .5f))
+                .Append(recipesBook.transform.DOScale(0f, .5f))
+                .AppendCallback(() =>
+                {
+                    bookFx.gameObject.SetActive(true);
+                    Destroy(recipesBook.gameObject);
+                });
         }
 
         private void Subscribe() => 
