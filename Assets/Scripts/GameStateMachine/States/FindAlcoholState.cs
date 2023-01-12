@@ -9,7 +9,6 @@ namespace GameStateMachine
     public class FindAlcoholState: BaseState
     {
         public InteractableObject targetObject;
-        public Vector3 positionOnTable;
         
         public FadingScreen fadingScreen;
         public TaskManager taskManager;
@@ -43,9 +42,6 @@ namespace GameStateMachine
         private void AlcoholFound()
         {
             targetObject.OnPressed -= AlcoholFound;
-            var spirit = targetObject.transform;
-            spirit.parent = null;
-            spirit.position = positionOnTable;
             
             taskManager.FinishTask();
             

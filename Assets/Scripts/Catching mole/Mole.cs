@@ -5,6 +5,7 @@ using UnityEngine;
 public class Mole: MonoBehaviour
 {
     public InteractableObject onCatch;
+    public BoxCollider hitBox;
 
     public Vector3 topPosition;
     public Vector3 bottomPosition;
@@ -33,13 +34,17 @@ public class Mole: MonoBehaviour
     private IEnumerator SwitchHoleAnimation(Hole hole)
     {
         Transform tr = transform;
-        _currentTween = tr.DOLocalMove(bottomPosition, .3f);
-        yield return new WaitForSeconds(.3f);
+        _currentTween = tr.DOLocalMove(bottomPosition, .2f);
+        yield return new WaitForSeconds(.2f);
 
+        hitBox.enabled = false;
+        
         tr.parent = hole.transform;
         tr.localPosition = Vector3.down;
 
         _currentTween = tr.DOLocalMove(topPosition, .3f);
-        
+        yield return new WaitForSeconds(.2f);
+        hitBox.enabled = true;
+
     }
 }

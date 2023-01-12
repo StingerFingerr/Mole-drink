@@ -13,8 +13,6 @@ namespace GameStateMachine
         public CameraManager cameraManager;
         public CinemachineVirtualCameraBase lookingAroundCam;
 
-        
-        
         public override void Enter()
         {
             cameraManager.SetActiveVCamera(lookingAroundCam);
@@ -30,6 +28,7 @@ namespace GameStateMachine
 
         private void GoOutside()
         {
+            targetObject.OnPressed -= GoOutside;
             taskManager.FinishTask();
             fadingScreen.Show();
             Invoke(nameof(Exit), 1);
