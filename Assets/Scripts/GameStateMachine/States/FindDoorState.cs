@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using UI;
+using UnityEngine;
 
 namespace GameStateMachine
 {

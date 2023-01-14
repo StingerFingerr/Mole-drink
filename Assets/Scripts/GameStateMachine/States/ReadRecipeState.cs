@@ -50,6 +50,7 @@ namespace GameStateMachine
 
         private void OpenRecipe()
         {
+            MarkerController.instance.Hide();
             recipe.Open(Continue);
         }
 

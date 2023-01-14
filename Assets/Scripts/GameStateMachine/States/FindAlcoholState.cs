@@ -44,6 +44,8 @@ namespace GameStateMachine
             targetObject.OnPressed -= AlcoholFound;
             
             taskManager.FinishTask();
+
+            MarkerController.instance.Show();
             
             Exit();
         }

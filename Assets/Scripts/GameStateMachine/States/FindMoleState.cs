@@ -56,6 +56,8 @@ namespace GameStateMachine
 
             yield return new WaitForSeconds(1f);
 
+            MarkerController.instance.Show();
+            
             wall.enabled = false;
             cameraManager.SetActiveVCamera(lookingAroundCamera);
 
