@@ -12,7 +12,7 @@ namespace GameStateMachine
 
         public InteractableObject drink;
         public GameObject grass;
-
+        
         public CameraManager cameraManager;
         public CinemachineVirtualCameraBase drinkCamera;
 
@@ -20,6 +20,8 @@ namespace GameStateMachine
 
         public override void Enter()
         {
+            onEnter?.Invoke();
+            
             taskManager.SetTask(addGrassTask);
             drink.OnPressed += FinishCooking;
         }

@@ -10,7 +10,8 @@ public class InteractableObject: MonoBehaviour
 {
     public MessageWindow messageWindow;
     public GameMessage interactMessage;
-    
+
+    public static Action OnClicked;
     public Action OnPressed;
     public UnityEvent onInteract;
 
@@ -22,6 +23,7 @@ public class InteractableObject: MonoBehaviour
         if (_isActive is false)
             return;
         ShowMessage();
+        OnClicked?.Invoke();
         OnPressed?.Invoke();
         onInteract?.Invoke();
     }

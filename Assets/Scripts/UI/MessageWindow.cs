@@ -7,6 +7,9 @@ namespace UI
 {
     public class MessageWindow: MonoBehaviour
     {
+        public AudioSource audioSource;
+        public AudioClip messageClip;
+        
         public Color greenColor;
         public Color orangeColor;
         public Color redColor;
@@ -22,10 +25,13 @@ namespace UI
         public void ShowMessage(GameMessage message)
         {
             gameObject.SetActive(false);
+            
             _disabling?.Kill();
             backgroundImage.color = GetColor(message.type);
             messageText.text = message.message;
             messageText.color = Color.black;
+            
+            audioSource.Play();
 
             gameObject.SetActive(true);
             DisableVia(message.messageDuration);

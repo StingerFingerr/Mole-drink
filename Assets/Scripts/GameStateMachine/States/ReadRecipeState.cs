@@ -63,8 +63,7 @@ namespace GameStateMachine
         private void PlayBookAnimation()
         {
             DOTween.Sequence()
-                .Append(recipesBook.transform.DOScale(.7f, .5f))
-                .Append(recipesBook.transform.DOScale(0f, .5f))
+                .Append(recipesBook.transform.DOScale(0, .5f))
                 .AppendCallback(() =>
                 {
                     bookFx.gameObject.SetActive(true);

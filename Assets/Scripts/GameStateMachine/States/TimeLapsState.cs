@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameStateMachine
 {
@@ -12,13 +13,17 @@ namespace GameStateMachine
         public FadingScreen fadingScreen;
         public Animator curtainsAnimator;
         public TextMeshProUGUI daysText;
-        public Material drinkMaterial;
         public MeshRenderer drinkMesh;
         public int requiredDays = 40;
         public List<GameObject> effects;
 
         public float timeBetweenDayTiks = .4f;
         public Color targetColor;
+
+        public MessageWindow messageWindow;
+        public GameMessage onHideMessage;
+        public Button hideButton;
+        public Button continueButton;
 
         private int _currentDay = 0;
         
@@ -54,8 +59,19 @@ namespace GameStateMachine
 
             daysText.gameObject.SetActive(false);
             curtainsAnimator.SetTrigger(Hide);
-            
-            StartCoroutine(PlayEffects());
+
+            yield return new WaitForSeconds(.5f);
+
+            hideButton.transform.parent.gameObject.SetActive(true);
+            hideButton.onClick.AddListener(ShowOnHideMessage);
+            continueButton.onClick.AddListener(Exit);
+            //StartCoroutine(PlayEffects());
+        }
+
+        private void ShowOnHideMessage()
+        {
+            hideButton.onClick.RemoveListener(ShowOnHideMessage);
+            messageWindow.ShowMessage(onHideMessage);
         }
 
         private IEnumerator PlayEffects()
@@ -71,6 +87,8 @@ namespace GameStateMachine
 
         public override void Exit()
         {
+            continueButton.onClick.RemoveListener(Exit);
+
             effects.ForEach(e => e.gameObject.SetActive(false));
             fadingScreen.Show();
             

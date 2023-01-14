@@ -7,8 +7,8 @@ namespace GameStateMachine
         public BaseState initialState;
 
         private BaseState _currentState;
-        
-        private void Start()
+
+        public void EnterInitialState()
         {
             Enter(initialState);
         }
