@@ -5,10 +5,17 @@ public class MarkerController: MonoBehaviour
 {
     public static MarkerController instance;
 
+    public bool IsActive => gameObject.activeSelf;
+
     private void Awake()
     {
         if(instance is null)
             instance = this;
+    }
+
+    private void Start()
+    {
+        Hide();
     }
 
     public void Hide()

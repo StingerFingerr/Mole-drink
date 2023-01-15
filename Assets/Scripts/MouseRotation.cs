@@ -10,7 +10,7 @@ public class MouseRotation: MonoBehaviour
     public float minYAngle;
     public float maxYAngle;
 
-    public float sensitivity;
+    public static float sensitivity = 40;
 
     public Vector3 initialRotation;
 

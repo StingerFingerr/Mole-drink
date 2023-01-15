@@ -32,6 +32,8 @@ public class Door : MonoBehaviour
     {
         if(_isOpened)
             return;
+
+        _isOpened = true;
         
         if (usePosChange)
             transform.DOLocalMove(openedPos, openingDuration).OnKill(() => _isOpened = true);
@@ -46,6 +48,8 @@ public class Door : MonoBehaviour
     {
         if(_isOpened is false)
             return;
+
+        _isOpened = false;
         
         if (usePosChange)
             transform.DOLocalMove(closedPos, openingDuration).OnKill(() => _isOpened = false);

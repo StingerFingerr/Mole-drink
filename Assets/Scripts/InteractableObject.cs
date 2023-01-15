@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UI;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,10 +16,15 @@ public class InteractableObject: MonoBehaviour
     private bool _nextMessageAllowed = true;
     private bool _isActive;
     
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
         if (_isActive is false)
             return;
+        if(UiController.IsUiClicked)
+            return;
+        if(Time.timeScale == 0)
+            return;
+
         ShowMessage();
         OnClicked?.Invoke();
         OnPressed?.Invoke();
